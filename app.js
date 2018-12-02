@@ -51,7 +51,7 @@ app.get('/', function(req, res) {
 		if (err) {
 			return console.error('Client error', err);
 		} else {
-			console.log('Client response', result.rows);
+			// console.log('Client response', result.rows);
 			res.render('index', {
 				recipes: result.rows
 			});
