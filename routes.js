@@ -4,7 +4,7 @@ const {
 } = require('pg');
 
 // DB connect string
-const connectionString = process.env.CONNECT;
+const connectionString = process.env.DATABASE_URL;
 
 const router = express.Router();
 
