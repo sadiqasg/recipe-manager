@@ -95,6 +95,23 @@ app.delete('/delete/:id', function (req, res) {
   // res.redirect('/');
 });
 
+app.post('/edit', function (req, res) {
+  const client = new Client({
+    connectionString: connectionString
+  });
+  client.connect();
+
+  client.query('UPDATE recipes SET name=$1, ingredients=$2, directions=$3 WHERE id=$4', [
+    req.body.name,
+    req.body.ingredients,
+    req.body.directions,
+    req.body.id
+  ]);
+
+  // done();
+  res.redirect('/');
+});
+
 // server
 app.listen(3000, function () {
   console.log('server started on port 3000');
