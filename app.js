@@ -1,17 +1,19 @@
+require('./config/config');
+
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cons = require('consolidate');
 const dust = require('dustjs-helpers');
 const {
-  Pool,
   Client
 } = require('pg');
 
 const app = express();
 
 // DB connect string
-const connectionString = 'postgres://sajicode:kamikaze@localhost/recipebookdb';
+const connectionString = process.env.CONNECT;
+const PORT = process.env.PORT;
 
 // Assign dust engine to .dust files
 app.engine('dust', cons.dust);
@@ -32,18 +34,6 @@ app.use(
 );
 
 app.get('/', function (req, res) {
-  // const pool = new Pool({
-  // 	connectionString: connectionString
-  // });
-
-  // pool.query('SELECT * FROM recipes', (err, res) => {
-  // 	if (err) {
-  // 		return console.error('Pool error', err);
-  // 	} else {
-  // 		console.log('Pool response', res.fields);
-  // 		pool.end();
-  // 	}
-  // });
 
   const client = new Client({
     connectionString: connectionString
@@ -113,6 +103,6 @@ app.post('/edit', function (req, res) {
 });
 
 // server
-app.listen(3000, function () {
-  console.log('server started on port 3000');
+app.listen(PORT, function () {
+  console.log(`server started on port ${PORT}`);
 });
